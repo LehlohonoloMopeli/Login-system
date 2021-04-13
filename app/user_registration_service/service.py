@@ -20,6 +20,8 @@ class UserRegistration():
         sql = User(
             full_names = self.__inputs.full_names,
             surname = self.__inputs.surname,
+            id_number = self.__inputs.id_number,
+            cell_number = self.__inputs.cell_number,
             email = self.__inputs.email,
             password = self.__inputs.password,
         )
