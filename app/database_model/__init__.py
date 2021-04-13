@@ -7,7 +7,7 @@ Base = declarative_base()
 
 from .user import User
 
-engine = create_engine("mysql+pymysql://root:@127.0.0.1/login_system", echo=True)
+engine = create_engine("mysql+pymysql://root:@127.0.0.1/banking-app", echo=True)
 
 Base.metadata.create_all(bind=engine)
 
