@@ -6,5 +6,5 @@ class UserRegistrationModel(BaseModel):
     id_number: str
     cell_number: str
     email: str
-    password: int
-    confirm_password: str
+    password: str
+    confirm_password: int
