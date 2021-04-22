@@ -129,28 +129,28 @@ Create a database in MySQL called "banking-app". SQLAlchemy will
 "MINGW64 - bash terminal"
 # Run command in directory you will be working from.
 $ : git clone https://github.com/LehlohonoloMopeli/banking-app.git
-$ : cd IBS-main-entries-backend
+$ : cd banking-app
 
 # To create virtual environment.
-$ */IBS-main-entries-backend(env): python3.9 -m venv env
+$ */banking-app(env): python3.9 -m venv env
 
 # To activate virtual environment
-$ */IBS-main-entries-backend(env): source ".\env\Scripts\activate"
+$ */banking-app(env): source ".\env\Scripts\activate"
 
 # To install the requirements run
-$ */IBS-main-entries-backend(env): pip  install -r requirements.txt
+$ */banking-app(env): pip  install -r requirements.txt
 
 # To update requirements.txt after installing new package
-$ */IBS-main-entries-backend(env): pip freeze > requirements.txt
+$ */banking-app(env): pip freeze > requirements.txt
 
 # To run the entire application use the following command
-$ */IBS-main-entries-backend(env): hypercorn app.main:app --reload
+$ */banking-app(env): hypercorn app.main:app --reload
 
 # To run a service of the application use the following command
-$ */IBS-main-entries-backend(env): hypercorn app.'service name'.main:app --reload
+$ */banking-app(env): hypercorn app.'service name'.main:app --reload
 # E.g
-$ */IBS-main-entries-backend(env): hypercorn app.user_login_service.main:app --reload
+$ */banking-app(env): hypercorn app.user_login_service.main:app --reload
 
 # To deactivate virtual enviroment
-$ */IBS-main-entries-backend(env): deactivate
+$ */banking-app(env): deactivate
 ```
