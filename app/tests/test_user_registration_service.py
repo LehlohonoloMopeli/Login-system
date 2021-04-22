@@ -22,7 +22,7 @@ def test_user_registration_service_pass():
     
 def test_user_registration_service_fail_1():
     """
-        Description: Repeating a code that alraedy exists in the database
+        Description: Repeating email that alraedy exists in the database
     """
     
     response = client.post(

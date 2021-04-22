@@ -5,7 +5,7 @@ def test_user_login_service_pass():
         "/login",
         json = {
             "email": "hloni@gmail.com",
-            "password": "string"
+            "password": 12345
         }
     )
     
@@ -27,7 +27,7 @@ def test_user_login_service_fail_1():
         "/login",
         json = {
             "email": "mopeli@gmail.com",
-            "password": "integer"
+            "password": 12345
         }
     )
     
@@ -47,7 +47,7 @@ def test_user_login_service_fail_2():
         "/login",
         json = {
             "email": "hloni@gmail.com",
-            "password": "integer"
+            "password": 54321
         }
     )
     
@@ -61,7 +61,7 @@ def test_user_login_service_fail_2():
     
 def test_user_login_service_fail_3():
     """
-        Description: Submit email pnly
+        Description: Submit email only
     """
     response = client.post(
         "/login",
