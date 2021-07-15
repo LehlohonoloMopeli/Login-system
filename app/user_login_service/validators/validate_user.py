@@ -1,13 +1,7 @@
 
 def validate_email_existance(query):
-    if query == None:
-        return False
-    else:
-        return True
+    return query is not None
     
 def validate_password(query, password):
-    if query.password == password:
-        return True
-    else:
-        return False
+    return query.password == password
     
