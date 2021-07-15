@@ -3,9 +3,11 @@ import logging
 from app.database_model.user import User
 from app.database_model import Session
 from app.user_registration_service.model import UserRegistrationModel
+
+#validators
 from app.user_registration_service.validators.validate_email import validate_email_existance
 from app.user_registration_service.validators.validate_password import validate_password_match
-from app.user_registration_service.validators.validate_email import validate_email_format
+from pyisemail import is_email
 
 class UserRegistration():
     
@@ -49,7 +51,7 @@ class UserRegistration():
                 "status": "failed",
                 "message": "Passwords do not match!"
             }
-        if validate_email_format(self.__inputs.email) != True:
+        if is_email(self.__inputs.email, check_dns=True) != True:
             return {
                 "status": "failed",
                 "message": "Invalid email address!"
