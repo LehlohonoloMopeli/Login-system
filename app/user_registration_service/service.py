@@ -16,7 +16,7 @@ class UserRegistration():
     def register_user(self):
         
         query = self.session.query(User).filter_by(email = self.__inputs.email).first()
-        
+
         sql = User(
             full_names = self.__inputs.full_names,
             surname = self.__inputs.surname,
@@ -25,35 +25,39 @@ class UserRegistration():
             email = self.__inputs.email,
             password = self.__inputs.password,
         )
-        
+
         try:
-            if validate_email_existance(query) == True:
-                if validate_password_match(self.__inputs.password, self.__inputs.confirm_password) == True:
-                    if validate_email_format(self.__inputs.email) == True:
-                        
-                        self.session.add(sql)
-                        self.session.commit()
-                        return {
-                            "status": "passed",
-                            "message": "You have successfully registered!"
-                        }
-                    else:
-                        return {
-                            "status": "failed",
-                            "message": "Invalid email address!"
-                        }
-                else:
-                    return {
-                        "status": "failed",
-                        "message": "Passwords do not match!"
-                    }
-            else:
-                return {
-                    "status": "failed",
-                    "message": "User already exists!"
-                }
-                
+            return self._extracted_from_register_user_15(query, sql)
         except Exception as error:
             logging.error("User Registration: " + str(error))
             return str(error)
+
+    def _extracted_from_register_user_15(self, query, sql):
+        if validate_email_existance(query) != True:
+            return {
+                "status": "failed",
+                "message": "User already exists!"
+            }
+
+        if (
+            validate_password_match(
+                self.__inputs.password, self.__inputs.confirm_password
+            )
+            != True
+        ):
+            return {
+                "status": "failed",
+                "message": "Passwords do not match!"
+            }
+        if validate_email_format(self.__inputs.email) != True:
+            return {
+                "status": "failed",
+                "message": "Invalid email address!"
+            }
+        self.session.add(sql)
+        self.session.commit()
+        return {
+            "status": "passed",
+            "message": "You have successfully registered!"
+        }
         

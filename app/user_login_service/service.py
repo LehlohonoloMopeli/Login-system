@@ -13,22 +13,20 @@ class Login():
     def login(self):
         
         query = self.session.query(User).filter_by(email = self.__inputs.email).first()
-        
-        if validate_email_existance(query) == True:
-            if validate_password(query, self.__inputs.password) == True:
-        
-                return {
-                    "user_id": query.user_id,
-                    "full_names": query.full_names,
-                    "surname": query.surname,
-                    "email": self.__inputs.email
-                }
-            
-            else:
-                return {
-                    "status": "failed",
-                    "message": "Email or Password is incorrect!"
-                }
+
+        if validate_email_existance(query) != True:
+            return {
+                "status": "failed",
+                "message": "Email or Password is incorrect!"
+            }
+        if validate_password(query, self.__inputs.password) == True:
+
+            return {
+                "full_names": query.full_names,
+                "surname": query.surname,
+                "email": self.__inputs.email
+            }
+
         else:
             return {
                 "status": "failed",
