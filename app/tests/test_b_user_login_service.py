@@ -9,7 +9,7 @@ def test_user_login_service_pass():
         }
     )
     
-    assert response.status_code == 200
+    assert response.status_code == 201
     
     assert response.json() == {
         "full_names": "Lehlohonolo",
@@ -30,11 +30,10 @@ def test_user_login_service_fail_1():
         }
     )
     
-    assert response.status_code == 200
+    assert response.status_code == 401
     
     assert response.json() == {
-        "status": "failed",
-        "message": "Email or Password is incorrect!"
+        "detail":"Email or Password is incorrect!"
     }
     
     
@@ -50,11 +49,10 @@ def test_user_login_service_fail_2():
         }
     )
     
-    assert response.status_code == 200
+    assert response.status_code == 401
     
     assert response.json() == {
-        "status": "failed",
-        "message": "Email or Password is incorrect!"
+        "detail":"Email or Password is incorrect!"
     }
     
     

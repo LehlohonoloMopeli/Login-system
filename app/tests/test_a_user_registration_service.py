@@ -14,7 +14,7 @@ def test_user_registration_service_pass():
         }
     )
     
-    assert response.status_code == 200
+    assert response.status_code == 201
     
     assert response.json() == {
         "status": "passed",
@@ -40,11 +40,10 @@ def test_user_registration_service_fail_1():
         }
     )
     
-    assert response.status_code == 200
+    assert response.status_code == 401
     
     assert response.json() == {
-        "status": "failed",
-        "message": "User already exists!"
+        "detail":"User already exists!"
     }
     
     
@@ -66,11 +65,10 @@ def test_user_registration_service_fail_2():
         }
     )
     
-    assert response.status_code == 200
+    assert response.status_code == 401
     
     assert response.json() == {
-        "status": "failed",
-        "message": "Passwords do not match!"
+        "detail":"Passwords do not match!"
     }
     
     
@@ -92,11 +90,10 @@ def test_user_registration_service_fail_3():
         }
     )
     
-    assert response.status_code == 200
+    assert response.status_code == 401
     
     assert response.json() == {
-        "status": "failed",
-        "message": "Invalid email address!"
+        "detail": "Invalid email address!"
     }
     
     
