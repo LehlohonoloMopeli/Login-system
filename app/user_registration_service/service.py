@@ -9,6 +9,11 @@ from app.user_registration_service.validators.validate_email import validate_ema
 from app.user_registration_service.validators.validate_password import validate_password_match
 from pyisemail import is_email
 
+#Responses
+from fastapi import HTTPException
+from fastapi.responses import JSONResponse
+
+
 class UserRegistration():
     
     def __init__(self, inputs: UserRegistrationModel):
@@ -28,18 +33,15 @@ class UserRegistration():
             password = self.__inputs.password,
         )
 
-        try:
-            return self._extracted_from_register_user_15(query, sql)
-        except Exception as error:
-            logging.error("User Registration: " + str(error))
-            return str(error)
+        return self._extracted_from_register_user_15(query, sql)
+
 
     def _extracted_from_register_user_15(self, query, sql):
         if validate_email_existance(query) != True:
-            return {
-                "status": "failed",
-                "message": "User already exists!"
-            }
+            raise HTTPException(
+                status_code=401,
+                detail="User already exists!"
+            )
 
         if (
             validate_password_match(
@@ -47,19 +49,23 @@ class UserRegistration():
             )
             != True
         ):
-            return {
-                "status": "failed",
-                "message": "Passwords do not match!"
-            }
+            raise HTTPException(
+                status_code=401,
+                detail="Passwords do not match!"
+            )
         if is_email(self.__inputs.email, check_dns=True) != True:
-            return {
-                "status": "failed",
-                "message": "Invalid email address!"
-            }
+            raise HTTPException(
+                status_code=401,
+                detail="Invalid email address!"
+            )
         self.session.add(sql)
         self.session.commit()
-        return {
+        response = {
             "status": "passed",
             "message": "You have successfully registered!"
         }
+        return JSONResponse(
+            status_code=201,
+            content=response
+        )
         
