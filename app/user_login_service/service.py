@@ -7,6 +7,7 @@ from .model import LoginModel
 #Responses
 from fastapi import HTTPException
 from fastapi.responses import JSONResponse
+from fastapi.encoders import jsonable_encoder
 
 class Login():
     
@@ -16,7 +17,7 @@ class Login():
         
     def login(self):
         
-        query = self.session.query(User).filter_by(email = self.__inputs.email).first()
+        query = self.session.query(User).filter(User.email == self.__inputs.email).first()
 
         if validate_email_existance(query) != True:
             raise HTTPException(
@@ -24,21 +25,22 @@ class Login():
                 detail="Email or Password is incorrect!"
             )
 
-        if validate_password(query, self.__inputs.password) == True:
-
-            response = {
-                "full_names": query.full_names,
-                "surname": query.surname,
-                "email": self.__inputs.email
-            }
-            return JSONResponse(
-                status_code=201,
-                content=response
-            )
-
-        else:
+        if validate_password(query, self.__inputs.password) != True:
             raise HTTPException(
                 status_code=401,
                 detail="Email or Password is incorrect!"
             )
-            
+
+        response = {
+            "full_names": query.full_names,
+            "surname": query.surname,
+            "email": query.email,
+        }
+
+        response = jsonable_encoder(query)
+
+        return JSONResponse(
+            status_code=201,
+            content=response
+        )
+          
