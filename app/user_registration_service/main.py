@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from .route import route
+from . import route
 
 """
     To run  the program use the following command $: hypercorn app.user_registration_service.main:app --reload

@@ -31,13 +31,13 @@ class Login():
                 detail="Email or Password is incorrect!"
             )
 
-        response = {
-            "full_names": query.full_names,
-            "surname": query.surname,
-            "email": query.email,
-        }
-
-        response = jsonable_encoder(query)
+        response = jsonable_encoder(
+            {
+                "full_names": query.full_names,
+                "surname": query.surname,
+                "email": query.email,
+            }
+        )
 
         return JSONResponse(
             status_code=201,

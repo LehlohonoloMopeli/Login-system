@@ -19,9 +19,9 @@ class BankAccounts(Base):
     account_id = Column(Integer(), primary_key=True, autoincrement=True)
     id_number = Column(String(13), ForeignKey('user.id_number'))
     created_on = Column(DateTime(), default=datetime.datetime.now)
-    account_number = Column(Integer(), nullable=False, unique=True)
+    account_number = Column(String(11), nullable=False, unique=True)
     account_type = Column(String(10), nullable=False)
-    balance = Column(Float(), nullable=False, default=0.00)
+    balance = Column(Float(), default=0.00)
     last_updated = Column(DateTime(), default=datetime.datetime.now, onupdate=datetime.datetime.now)
 
 
