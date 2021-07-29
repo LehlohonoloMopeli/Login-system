@@ -6,6 +6,8 @@ import mysql.connector, pymysql
 Base = declarative_base()
 
 from .user import User
+from .bank_accounts import BankAccounts
+from .transactions import Transactions
 
 engine = create_engine("mysql+pymysql://root:@127.0.0.1/banking-app", echo=True)
 
